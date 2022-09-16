@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 import Link from './Link';
 
-const FEED_QUERY = gql`
+export const FEED_QUERY = gql`
   {
     feed {
       id

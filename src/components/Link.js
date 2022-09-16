@@ -2,6 +2,7 @@ import { gql, useMutation } from '@apollo/client';
 import React from 'react';
 import { AUTH_TOKEN } from './utils/constants';
 import { timeDifferenceForDate } from './utils/utils';
+import { FEED_QUERY } from './LinkList';
 
 const VOTE_MUTATION = gql`
   mutation VoteMutation($linkId: ID!) {
@@ -36,24 +37,24 @@ const Link = (props) => {
         query: FEED_QUERY,
       });
 
-      const updatedLinks = feed.links.map((feedlink) => {
-        if(feedlink.id === link.id) {
+      const updatedLinks = feed.links.map((feedLink) => {
+        if (feedLink.id === link.id) {
           return {
             ...feedLink,
-            votes: [...feedlink.votes, vote]
-          }
+            votes: [...feedLink.votes, vote],
+          };
         }
-        return feedLink
+        return feedLink;
       });
 
       cache.writeQuery({
         query: FEED_QUERY,
         data: {
           feed: {
-            links: updatedLinks
-          }
-        }
-      })
+            links: updatedLinks,
+          },
+        },
+      });
     },
   });
 
